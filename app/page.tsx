@@ -324,7 +324,14 @@ const Hero = () => {
     >
       <motion.div
         className="absolute right-0 top-1/2 -translate-y-1/2 w-[min(90vw,580px)] max-h-[85vh] pointer-events-none z-0"
-        style={{ y: klY, opacity: klOpacity }}
+        style={{
+          y: klY,
+          opacity: klOpacity,
+          WebkitMaskImage:
+            "radial-gradient(circle at 70% 40%, black 0%, black 60%, transparent 88%)",
+          maskImage:
+            "radial-gradient(circle at 70% 40%, black 0%, black 60%, transparent 88%)",
+        }}
       >
         <motion.div
           className="w-full h-full"
@@ -654,10 +661,10 @@ const Founder = () => (
 
           <div className="flex flex-wrap items-baseline gap-x-2.5">
             <span className="uppercase" style={{ fontSize: 10, letterSpacing: "0.18em", color: C.inkMuted, fontWeight: 500 }}>
-              Studied across:
+              Studied and lived across:
             </span>
             <span style={{ fontSize: 12, color: C.blue, fontWeight: 400, letterSpacing: "0.02em" }}>
-              San Francisco · Berlin · Buenos Aires · Seoul · Taipei · London · Hyderabad
+              San Francisco · Berlin · Buenos Aires · Seoul · Taipei · London · Hyderabad · Kuala Lumpur · Denver · Minneapolis
             </span>
           </div>
         </motion.div>
