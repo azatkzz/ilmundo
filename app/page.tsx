@@ -245,12 +245,12 @@ const Navbar = () => {
         </a>
 
         <button
-          className="lg:hidden"
+          className="lg:hidden inline-flex items-center justify-center"
           onClick={() => setOpen(true)}
           aria-label="Open menu"
-          style={{ color: scrolled ? C.ink : C.cream, transition: "color 0.5s ease" }}
+          style={{ color: scrolled ? C.ink : C.cream, transition: "color 0.5s ease", width: 44, height: 44, margin: -10 }}
         >
-          <Menu size={22} />
+          <Menu size={24} />
         </button>
       </nav>
 
@@ -265,10 +265,10 @@ const Navbar = () => {
             style={{ background: C.blue }}
           >
             <button
-              className="absolute top-5 right-6"
+              className="absolute top-4 right-4 inline-flex items-center justify-center"
               onClick={() => setOpen(false)}
               aria-label="Close menu"
-              style={{ color: C.cream }}
+              style={{ color: C.cream, width: 44, height: 44 }}
             >
               <X size={26} />
             </button>
@@ -314,23 +314,31 @@ const Navbar = () => {
 
 const Hero = () => {
   const { scrollY } = useScroll();
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
   const klY = useTransform(scrollY, [0, 500], [0, 80]);
-  const klOpacity = useTransform(scrollY, [0, 350], [0.9, 0.5]);
+  const klOpacity = useTransform(scrollY, [0, 350], isMobile ? [0.3, 0.1] : [0.9, 0.5]);
 
   return (
     <section
-      className="relative overflow-hidden flex items-end"
-      style={{ background: C.blue, minHeight: "100vh", paddingTop: 72 }}
+      className="relative overflow-hidden flex items-end min-h-svh"
+      style={{ background: C.blue, paddingTop: 72 }}
     >
       <motion.div
-        className="absolute right-0 top-1/2 -translate-y-1/2 w-[min(90vw,580px)] max-h-[85vh] pointer-events-none z-0"
+        className="absolute right-0 top-1/2 -translate-y-1/2 w-[min(100vw,360px)] sm:w-[min(90vw,580px)] max-h-[85vh] pointer-events-none z-0"
         style={{
           y: klY,
           opacity: klOpacity,
           WebkitMaskImage:
-            "radial-gradient(circle at 70% 40%, black 0%, black 60%, transparent 88%)",
+            "radial-gradient(circle at 70% 40%, black 0%, black 55%, transparent 85%)",
           maskImage:
-            "radial-gradient(circle at 70% 40%, black 0%, black 60%, transparent 88%)",
+            "radial-gradient(circle at 70% 40%, black 0%, black 55%, transparent 85%)",
         }}
       >
         <motion.div
@@ -347,12 +355,12 @@ const Hero = () => {
         </motion.div>
       </motion.div>
 
-      <div className={`${cx} relative z-10 w-full pb-20 pt-24 sm:pb-28 sm:pt-32 lg:pb-36`}>
+      <div className={`${cx} relative z-10 w-full pb-14 pt-20 sm:pb-28 sm:pt-32 lg:pb-36`}>
       <motion.p
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease, delay: 0 }}
-        className="uppercase mb-8"
+        className="uppercase mb-6 sm:mb-8"
         style={{ fontSize: 11, letterSpacing: "0.2em", color: "rgba(255,242,233,0.4)", fontWeight: 400 }}
       >
         Education Consultancy · Malaysia
@@ -365,12 +373,12 @@ const Hero = () => {
         style={{
           ...SERIF,
           fontStyle: "italic",
-          fontSize: "clamp(3.2rem, 7.5vw, 6.5rem)",
+          fontSize: "clamp(2.75rem, 10vw, 6.5rem)",
           lineHeight: 1.02,
           letterSpacing: "-0.025em",
           color: C.cream,
         }}
-        className="mb-8 max-w-[700px]"
+        className="mb-6 sm:mb-8 max-w-[700px]"
       >
         Knowledge
         <br />
@@ -381,8 +389,8 @@ const Hero = () => {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease, delay: 0.16 }}
-        className="mb-12 max-w-[440px]"
-        style={{ fontWeight: 300, fontSize: "1.05rem", lineHeight: 1.75, color: "rgba(255,242,233,0.6)" }}
+        className="mb-10 sm:mb-12 max-w-[440px]"
+        style={{ fontWeight: 300, fontSize: "clamp(0.95rem, 2.5vw, 1.05rem)", lineHeight: 1.7, color: "rgba(255,242,233,0.65)" }}
       >
         Premium education consulting rooted in Malaysian values, shaped by a global perspective.
       </motion.p>
@@ -391,14 +399,14 @@ const Hero = () => {
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease, delay: 0.24 }}
-        className="flex flex-wrap gap-3 mb-20"
+        className="flex flex-col sm:flex-row flex-wrap gap-3 mb-14 sm:mb-20"
       >
         <motion.a
           href="#services"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="rounded-full inline-flex items-center"
-          style={{ fontWeight: 500, fontSize: 14, background: C.cream, color: C.blue, padding: "13px 30px" }}
+          className="rounded-full inline-flex items-center justify-center"
+          style={{ fontWeight: 500, fontSize: 14, background: C.cream, color: C.blue, padding: "14px 30px" }}
         >
           Explore Services
         </motion.a>
@@ -406,8 +414,8 @@ const Hero = () => {
           href="#founder"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="rounded-full inline-flex items-center gap-2"
-          style={{ fontWeight: 400, fontSize: 14, border: "1px solid rgba(255,242,233,0.2)", color: C.cream, padding: "13px 30px" }}
+          className="rounded-full inline-flex items-center justify-center gap-2"
+          style={{ fontWeight: 400, fontSize: 14, border: "1px solid rgba(255,242,233,0.2)", color: C.cream, padding: "14px 30px" }}
         >
           Meet the Founder <ArrowRight size={15} />
         </motion.a>
@@ -445,9 +453,9 @@ const About = () => (
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
       variants={stagger}
-      className={`${cx} py-28 sm:py-36 lg:py-44`}
+      className={`${cx} py-20 sm:py-28 md:py-36 lg:py-44`}
     >
-      <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+      <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-24 items-start">
         <motion.div variants={fadeIn}>
           <Label>About</Label>
           <h2
@@ -499,20 +507,29 @@ const upcoming = [
 const Tooltip = ({ name, full }: { name: string; full: string }) => {
   const [show, setShow] = useState(false);
   return (
-    <div className="relative" onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
-      <span
-        className="rounded-full cursor-default inline-flex items-center gap-1 transition-all duration-200"
+    <div
+      className="relative"
+      onMouseEnter={() => setShow(true)}
+      onMouseLeave={() => setShow(false)}
+    >
+      <button
+        type="button"
+        onClick={() => setShow((s) => !s)}
+        aria-expanded={show}
+        aria-label={`${name} — ${full}`}
+        className="rounded-full inline-flex items-center gap-1 transition-all duration-200 cursor-pointer"
         style={{
           fontSize: 12,
           fontWeight: 400,
           color: show ? C.blue : C.inkSoft,
           border: `1px solid ${show ? "rgba(1,42,140,0.35)" : "rgba(1,42,140,0.12)"}`,
           background: show ? "rgba(1,42,140,0.04)" : "transparent",
-          padding: "6px 16px",
+          padding: "7px 16px",
+          minHeight: 32,
         }}
       >
         {name}
-      </span>
+      </button>
       <AnimatePresence>
         {show && (
           <motion.div
@@ -520,7 +537,7 @@ const Tooltip = ({ name, full }: { name: string; full: string }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -2 }}
             transition={{ duration: 0.15 }}
-            className="absolute left-0 top-full mt-2 z-30 rounded-lg whitespace-nowrap"
+            className="absolute left-0 top-full mt-2 z-30 rounded-lg whitespace-nowrap pointer-events-none"
             style={{
               background: C.white,
               padding: "8px 14px",
@@ -547,10 +564,10 @@ const Services = () => (
         whileInView="visible"
         viewport={{ once: true, margin: "-80px" }}
         variants={stagger}
-        className="rounded-[24px] overflow-hidden"
-        style={{ background: C.blueLight, padding: "clamp(36px, 6vw, 72px) clamp(24px, 5vw, 56px)" }}
+        className="rounded-[20px] sm:rounded-[24px] overflow-hidden"
+        style={{ background: C.blueLight, padding: "clamp(28px, 6vw, 72px) clamp(20px, 5vw, 56px)" }}
       >
-        <div className="grid lg:grid-cols-2 gap-14 lg:gap-20">
+        <div className="grid lg:grid-cols-2 gap-10 sm:gap-14 lg:gap-20">
           <motion.div variants={fadeIn}>
             <Label>Services</Label>
             <h2
@@ -571,24 +588,24 @@ const Services = () => (
                 variants={fadeInScale}
                 custom={i * 0.08}
                 whileHover={{ y: -2, boxShadow: "0 8px 32px rgba(1,42,140,0.1)" }}
-                className="rounded-2xl flex items-center justify-between gap-4"
+                className="rounded-2xl flex items-center justify-between gap-3 sm:gap-4"
                 style={{
                   background: C.white,
-                  padding: "24px 28px",
+                  padding: "20px 22px",
                   boxShadow: "0 1px 12px rgba(1,42,140,0.04)",
                   transition: "box-shadow 0.3s ease",
                   cursor: "default",
                 }}
               >
-                <div>
+                <div className="min-w-0">
                   <span
                     className="inline-block rounded-full mb-2.5"
                     style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.14em", background: C.blue, color: C.cream, padding: "4px 12px" }}
                   >
                     {s.tag}
                   </span>
-                  <h3 className="mb-1" style={{ ...SERIF, fontSize: "1.15rem", color: C.ink }}>{s.name}</h3>
-                  <p style={{ fontSize: "0.825rem", color: C.inkSoft, fontWeight: 400 }}>{s.desc}</p>
+                  <h3 className="mb-1" style={{ ...SERIF, fontSize: "clamp(1.05rem, 2.5vw, 1.15rem)", color: C.ink, lineHeight: 1.25 }}>{s.name}</h3>
+                  <p style={{ fontSize: "0.825rem", color: C.inkSoft, fontWeight: 400, lineHeight: 1.5 }}>{s.desc}</p>
                 </div>
                 <ArrowRight size={18} style={{ color: C.blue, flexShrink: 0, opacity: 0.4 }} />
               </motion.div>
@@ -596,7 +613,7 @@ const Services = () => (
           </div>
         </div>
 
-        <motion.div variants={fadeIn} className="mt-14 pt-10" style={{ borderTop: "1px solid rgba(1,42,140,0.06)" }}>
+        <motion.div variants={fadeIn} className="mt-10 sm:mt-14 pt-8 sm:pt-10" style={{ borderTop: "1px solid rgba(1,42,140,0.06)" }}>
           <Label>Coming Soon</Label>
           <div className="flex flex-wrap gap-2">
             {upcoming.map((u) => (
@@ -620,10 +637,14 @@ const Founder = () => (
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
       variants={stagger}
-      className={`${cx} py-28 sm:py-36 lg:py-44`}
+      className={`${cx} py-20 sm:py-28 md:py-36 lg:py-44`}
     >
-      <div className="grid md:grid-cols-2 gap-14 lg:gap-24 items-start">
-        <motion.div variants={fadeIn} className="rounded-[20px] overflow-hidden" style={{ aspectRatio: "4/5", maxHeight: 560 }}>
+      <div className="grid md:grid-cols-2 gap-10 sm:gap-14 lg:gap-24 items-start">
+        <motion.div
+          variants={fadeIn}
+          className="rounded-[20px] overflow-hidden mx-auto w-full max-w-[380px] md:max-w-none"
+          style={{ aspectRatio: "4/5", maxHeight: 560 }}
+        >
           <img
             src="/KV.jpeg"
             alt="Kah Vern, founder of ilmundo"
@@ -659,11 +680,11 @@ const Founder = () => (
             ))}
           </div>
 
-          <div className="flex flex-wrap items-baseline gap-x-2.5">
+          <div className="flex flex-col gap-2">
             <span className="uppercase" style={{ fontSize: 10, letterSpacing: "0.18em", color: C.inkMuted, fontWeight: 500 }}>
-              Studied and lived across:
+              Studied and lived across
             </span>
-            <span style={{ fontSize: 12, color: C.blue, fontWeight: 400, letterSpacing: "0.02em" }}>
+            <span style={{ fontSize: 12, color: C.blue, fontWeight: 400, letterSpacing: "0.02em", lineHeight: 1.7 }}>
               San Francisco · Berlin · Buenos Aires · Seoul · Taipei · London · Hyderabad · Kuala Lumpur · Denver · Minneapolis
             </span>
           </div>
@@ -696,9 +717,9 @@ const Values = () => (
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
       variants={stagger}
-      className={`${cx} py-28 sm:py-36 lg:py-44`}
+      className={`${cx} py-20 sm:py-28 md:py-36 lg:py-44`}
     >
-      <motion.div variants={fadeIn} className="text-center mb-16 sm:mb-20">
+      <motion.div variants={fadeIn} className="text-center mb-12 sm:mb-16 md:mb-20">
         <Label>Our Philosophy</Label>
         <h2 style={{ ...SERIF, fontSize: "clamp(2.2rem, 5vw, 3.8rem)", lineHeight: 1.08, color: C.ink, letterSpacing: "-0.02em" }}>
           Student-first. Always.
@@ -714,7 +735,7 @@ const Values = () => (
               variants={fadeInScale}
               custom={i * 0.06}
               className="rounded-2xl transition-all duration-300 group"
-              style={{ background: C.cream, padding: "32px 28px", border: "1px solid rgba(1,42,140,0.04)" }}
+              style={{ background: C.cream, padding: "26px 24px", border: "1px solid rgba(1,42,140,0.04)" }}
               whileHover={{ borderColor: "rgba(1,42,140,0.12)", y: -2 }}
             >
               <Icon size={24} strokeWidth={1.5} style={{ color: C.blue }} className="mb-4 opacity-70 group-hover:opacity-100 transition-opacity" />
@@ -741,24 +762,24 @@ const MissionVision = () => (
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
       variants={stagger}
-      className={`${cx} relative z-10 py-28 sm:py-36 lg:py-44 grid md:grid-cols-2`}
+      className={`${cx} relative z-10 py-20 sm:py-28 md:py-36 lg:py-44 grid md:grid-cols-2`}
     >
       <motion.div
         variants={fadeInScale}
         custom={0}
-        className="md:pr-16 border-b md:border-b-0 md:border-r pb-14 md:pb-0"
+        className="md:pr-16 border-b md:border-b-0 md:border-r pb-10 md:pb-0"
         style={{ borderColor: "rgba(255,242,233,0.1)" }}
       >
         <Label color="rgba(255,242,233,0.35)">Mission</Label>
-        <p style={{ ...SERIF, fontStyle: "italic", fontSize: "clamp(1.3rem, 2.2vw, 1.75rem)", lineHeight: 1.5, color: C.cream }}>
+        <p style={{ ...SERIF, fontStyle: "italic", fontSize: "clamp(1.2rem, 3vw, 1.75rem)", lineHeight: 1.5, color: C.cream }}>
           To place every student&apos;s best interest at the center of education by delivering premium, end-to-end
           academic guidance and mentorship. Rooted in Malaysian values and guided by a global perspective.
         </p>
       </motion.div>
 
-      <motion.div variants={fadeInScale} custom={0.12} className="md:pl-16 pt-14 md:pt-0">
+      <motion.div variants={fadeInScale} custom={0.12} className="md:pl-16 pt-10 md:pt-0">
         <Label color="rgba(255,242,233,0.35)">Vision</Label>
-        <p style={{ ...SERIF, fontStyle: "italic", fontSize: "clamp(1.3rem, 2.2vw, 1.75rem)", lineHeight: 1.5, color: C.cream }}>
+        <p style={{ ...SERIF, fontStyle: "italic", fontSize: "clamp(1.2rem, 3vw, 1.75rem)", lineHeight: 1.5, color: C.cream }}>
           To elevate Malaysia&apos;s education ecosystem by pioneering a holistic, student-first model that integrates
           academic excellence, character, and global readiness.
         </p>
@@ -785,9 +806,9 @@ const BrandMoment = () => (
       viewport={{ once: true, margin: "-80px" }}
       variants={fadeInScale}
       custom={0}
-      className={`${cx} relative z-10 py-36 sm:py-48 lg:py-56 text-center`}
+      className={`${cx} relative z-10 py-24 sm:py-36 md:py-48 lg:py-56 text-center`}
     >
-      <h2 style={{ ...SERIF, fontSize: "clamp(3rem, 7vw, 5.5rem)", lineHeight: 1.08, letterSpacing: "-0.02em" }}>
+      <h2 style={{ ...SERIF, fontSize: "clamp(2.5rem, 9vw, 5.5rem)", lineHeight: 1.08, letterSpacing: "-0.02em" }}>
         <span style={{ color: C.blue }}>ilmu</span>
         <span style={{ color: "rgba(1,42,140,0.2)", margin: "0 0.1em" }}>·</span>
         <span style={{ color: C.blue }}>mundo</span>
@@ -797,9 +818,9 @@ const BrandMoment = () => (
         knowledge × world
       </p>
 
-      <div className="h-12" aria-hidden="true" />
+      <div className="h-8 sm:h-12" aria-hidden="true" />
 
-      <p style={{ ...SERIF, fontStyle: "italic", fontSize: "clamp(1.2rem, 2.2vw, 1.5rem)", color: C.inkSoft, lineHeight: 1.5 }}>
+      <p style={{ ...SERIF, fontStyle: "italic", fontSize: "clamp(1.1rem, 2.6vw, 1.5rem)", color: C.inkSoft, lineHeight: 1.5 }}>
         &ldquo;A world of knowledge — for every student.&rdquo;
       </p>
     </motion.div>
@@ -820,27 +841,27 @@ const CTA = () => (
       viewport={{ once: true, margin: "-80px" }}
       variants={fadeInScale}
       custom={0}
-      className={`${cx} relative z-10 py-28 sm:py-36 lg:py-44 text-center`}
+      className={`${cx} relative z-10 py-20 sm:py-28 md:py-36 lg:py-44 text-center`}
     >
-      <h2 className="mb-5" style={{ ...SERIF, fontStyle: "italic", fontSize: "clamp(2.4rem, 5vw, 4.2rem)", lineHeight: 1.08, color: C.cream }}>
+      <h2 className="mb-5" style={{ ...SERIF, fontStyle: "italic", fontSize: "clamp(2rem, 6vw, 4.2rem)", lineHeight: 1.08, color: C.cream }}>
         Let&apos;s find your path.
       </h2>
       <p
-        className="mx-auto mb-12"
-        style={{ fontWeight: 300, fontSize: "1rem", lineHeight: 1.75, color: "rgba(255,242,233,0.6)", maxWidth: 460 }}
+        className="mx-auto mb-10 sm:mb-12"
+        style={{ fontWeight: 300, fontSize: "clamp(0.95rem, 2.5vw, 1rem)", lineHeight: 1.7, color: "rgba(255,242,233,0.65)", maxWidth: 460 }}
       >
         Start your <span style={WORDMARK}>ilmundo</span> journey today — no commitment,
         just a conversation about what your student needs.
       </p>
 
-      <div className="flex flex-wrap justify-center gap-3">
+      <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 max-w-[420px] sm:max-w-none mx-auto">
         <motion.a
           href="https://wa.me/601163068367"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="rounded-full inline-flex items-center"
+          className="rounded-full inline-flex items-center justify-center"
           style={{ fontWeight: 500, fontSize: 14, background: C.cream, color: C.blue, padding: "14px 32px" }}
         >
           Book a Free Consultation
@@ -851,7 +872,7 @@ const CTA = () => (
           rel="noopener noreferrer"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="rounded-full inline-flex items-center gap-2"
+          className="rounded-full inline-flex items-center justify-center gap-2"
           style={{ fontWeight: 400, fontSize: 14, border: "1px solid rgba(255,242,233,0.2)", color: C.cream, padding: "14px 32px" }}
         >
           <MessageCircle size={16} />
@@ -909,7 +930,7 @@ const Footer = () => (
   <footer style={{ background: C.black }}>
     <div className={cx}>
       <div
-        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-12"
+        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-10 sm:py-12"
         style={{ borderBottom: "1px solid rgba(255,242,233,0.06)" }}
       >
         <div className="flex items-center gap-2.5">
@@ -921,7 +942,7 @@ const Footer = () => (
         </span>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-10 py-14">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 py-10 sm:py-14">
         {footerCols.map((col) => (
           <div key={col.title}>
             <p className="uppercase mb-5" style={{ fontSize: 10, letterSpacing: "0.18em", color: "rgba(255,242,233,0.3)", fontWeight: 500 }}>
