@@ -380,9 +380,9 @@ const Hero = () => {
         }}
         className="mb-6 sm:mb-8 max-w-[700px]"
       >
-        Knowledge
+        Discover A World
         <br />
-        Without Borders.
+        of Knowledge.
       </motion.h1>
 
       <motion.p
@@ -665,7 +665,7 @@ const Founder = () => (
             {[
               <>Kah Vern founded <span style={WORDMARK}>ilmundo</span> to help students become global citizens while staying rooted in their culture.</>,
               <>At Minerva University, he studied across seven global cities — gaining insight into diverse educational systems and understanding how to bridge global standards with local potential.</>,
-              <>With experience teaching in the US at Breakthrough Twin Cities, Think Academy, and DSST Public Schools, Kah Vern worked with multilingual learners, students with disabilities, and refugee-background students.</>,
+              <>With experience teaching in the US at Breakthrough Twin Cities, Think Academy, and DSST Public Schools, Kah Vern worked with multilingual learners, students with disabilities, and students of refugee descent.</>,
               <><span style={WORDMARK}>ilmundo</span> was born to transform education for the 21st century — combining Malaysian values with a global perspective.</>,
             ].map((text, i) => (
               <p key={i} style={{ fontSize: "0.95rem", lineHeight: 1.8, color: C.inkSoft, fontWeight: 400 }}>{text}</p>
@@ -806,8 +806,10 @@ const BrandMoment = () => (
         <span style={{ color: C.blue }}>mundo</span>
       </h2>
 
-      <p className="uppercase mt-4" style={{ fontWeight: 300, fontSize: "0.8rem", letterSpacing: "0.35em", color: C.inkMuted }}>
-        knowledge × world
+      <p className="mt-4 flex items-center justify-center gap-3" style={{ fontWeight: 300, fontSize: "0.8rem", letterSpacing: "0.25em", color: C.inkSoft }}>
+        <span><span className="uppercase" style={{ letterSpacing: "0.15em" }}>ilmu</span> <span style={{ fontSize: "0.7rem" }}>(malay: knowledge)</span></span>
+        <span>×</span>
+        <span><span className="uppercase" style={{ letterSpacing: "0.15em" }}>mundo</span> <span style={{ fontSize: "0.7rem" }}>(spanish: world)</span></span>
       </p>
 
       <div className="h-8 sm:h-12" aria-hidden="true" />
@@ -929,7 +931,7 @@ const Footer = () => (
           <span style={{ ...WORDMARK, fontSize: 18, color: C.cream }}>ilmundo</span>
         </div>
         <span style={{ fontSize: 12, color: "rgba(255,242,233,0.3)", fontWeight: 400 }}>
-          Knowledge Without Borders.
+          Discover A World of Knowledge.
         </span>
       </div>
 
