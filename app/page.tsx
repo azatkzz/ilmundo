@@ -488,9 +488,9 @@ const About = () => (
    ═══════════════════════════════════════════════════════════════ */
 
 const services = [
-  { tag: "ANTERO", name: "Global Education Concierge", desc: "End-to-end guidance for international study paths." },
-  { tag: "DIDIK", name: "Academic Tuition", desc: "Expert tutoring built around your learning style." },
-  { tag: "UNIk", name: "College Admissions Consulting", desc: "Your unique path to the right university." },
+  { tag: "ANTERO", name: "Global Impact Programs", desc: "Learn about social issues and develop a global perspective." },
+  { tag: "MINDA", name: "Mental Health Literacy Education", desc: "Building emotional awareness and mental wellness for students." },
+  { tag: "UNIK", name: "College Admissions Consulting", desc: "Your unique path to the right university." },
 ];
 
 const upcoming = [
@@ -613,14 +613,6 @@ const Services = () => (
           </div>
         </div>
 
-        <motion.div variants={fadeIn} className="mt-10 sm:mt-14 pt-8 sm:pt-10" style={{ borderTop: "1px solid rgba(1,42,140,0.06)" }}>
-          <Label>Coming Soon</Label>
-          <div className="flex flex-wrap gap-2">
-            {upcoming.map((u) => (
-              <Tooltip key={u.name} name={u.name} full={u.full} />
-            ))}
-          </div>
-        </motion.div>
       </motion.div>
     </div>
   </section>
@@ -892,9 +884,8 @@ const footerCols = [
     title: "PRODUCT",
     links: [
       { label: "Antero", href: "#services" },
-      { label: "Didik", href: "#services" },
-      { label: "UNIk", href: "#services" },
-      { label: "+ Coming Soon", href: "#services" },
+      { label: "Minda", href: "#services" },
+      { label: "UNIK", href: "#services" },
     ],
   },
   {
