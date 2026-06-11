@@ -791,6 +791,57 @@ const MissionVision = () => (
 );
 
 /* ═══════════════════════════════════════════════════════════════
+   7.5 · THE PROBLEM — choice overwhelm
+   ═══════════════════════════════════════════════════════════════ */
+
+const Overwhelm = () => (
+  <section className="relative overflow-hidden" style={{ background: C.white }}>
+    <GlobeGrid size={560} opacity={0.04} color={C.blue} style={{ right: "-8%", top: "50%", transform: "translateY(-50%)" }} />
+
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+      variants={stagger}
+      className={`${cx} relative z-10 py-24 sm:py-32 md:py-40 max-w-[920px]`}
+    >
+      <motion.div variants={fadeIn} custom={0}>
+        <Label color={C.inkMuted}>The Problem</Label>
+      </motion.div>
+
+      <motion.h2
+        variants={fadeIn}
+        custom={0.08}
+        style={{ ...SERIF, fontSize: "clamp(2rem, 5.5vw, 3.5rem)", lineHeight: 1.14, color: C.blue, letterSpacing: "-0.01em" }}
+      >
+        Buying flights. Booking accommodation. A hundred tabs open — and still no clear answer.
+      </motion.h2>
+
+      <motion.p
+        variants={fadeIn}
+        custom={0.16}
+        className="mt-7"
+        style={{ ...SERIF, fontStyle: "italic", fontSize: "clamp(1.25rem, 3vw, 1.85rem)", lineHeight: 1.5, color: C.inkSoft, maxWidth: 720 }}
+      >
+        There are so many choices. But how do you know you&apos;re making the best one?
+      </motion.p>
+
+      <motion.div variants={fadeIn} custom={0.24} className="mt-10 flex flex-wrap gap-3">
+        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="inline-block">
+          <Link
+            href="/flight-search"
+            className="rounded-full inline-flex items-center justify-center gap-2"
+            style={{ fontWeight: 500, fontSize: 14, background: C.blue, color: C.cream, padding: "14px 30px", textDecoration: "none" }}
+          >
+            Start your flight search <ArrowRight size={15} />
+          </Link>
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  </section>
+);
+
+/* ═══════════════════════════════════════════════════════════════
    8 · BRAND MOMENT
    ═══════════════════════════════════════════════════════════════ */
 
@@ -895,9 +946,10 @@ const footerCols = [
   {
     title: "PRODUCT",
     links: [
-      { label: "Antero", href: "#services" },
-      { label: "Minda", href: "#services" },
-      { label: "UNIK", href: "#services" },
+      { label: "Antero", href: "/antero" },
+      { label: "Minda", href: "/minda" },
+      { label: "Unik", href: "/unik" },
+      { label: "Kelas", href: "/kelas" },
     ],
   },
   {
@@ -993,6 +1045,7 @@ export default function Page() {
       <Founder />
       <Values />
       <MissionVision />
+      <Overwhelm />
       <BrandMoment />
       <CTA />
       <Footer />
