@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   motion,
   useScroll,
@@ -488,9 +489,10 @@ const About = () => (
    ═══════════════════════════════════════════════════════════════ */
 
 const services = [
-  { tag: "ANTERO", name: "Global Impact Programs", desc: "Learn about social issues and develop a global perspective." },
-  { tag: "MINDA", name: "Mental Health Literacy Education", desc: "Building emotional awareness and mental wellness for students." },
-  { tag: "UNIK", name: "College Admissions Consulting", desc: "Your unique path to the right university." },
+  { tag: "ANTERO", name: "Global Impact Programs", desc: "Learn about social issues and develop a global perspective.", href: "/antero" },
+  { tag: "MINDA", name: "Mental Health Literacy Education", desc: "Building emotional awareness and mental wellness for students.", href: "/minda" },
+  { tag: "UNIK", name: "College Admissions Consulting", desc: "Your unique path to the right university.", href: "/unik" },
+  { tag: "KELAS", name: "Personalized Tutoring", desc: "Personalized tutoring that meets every student where they are, taught by Kah Vern.", href: "/kelas" },
 ];
 
 const upcoming = [
@@ -582,34 +584,42 @@ const Services = () => (
           </motion.div>
 
           <div className="flex flex-col gap-3.5">
-            {services.map((s, i) => (
-              <motion.div
-                key={s.tag}
-                variants={fadeInScale}
-                custom={i * 0.08}
-                whileHover={{ y: -2, boxShadow: "0 8px 32px rgba(1,42,140,0.1)" }}
-                className="rounded-2xl flex items-center justify-between gap-3 sm:gap-4"
-                style={{
-                  background: C.white,
-                  padding: "20px 22px",
-                  boxShadow: "0 1px 12px rgba(1,42,140,0.04)",
-                  transition: "box-shadow 0.3s ease",
-                  cursor: "default",
-                }}
-              >
-                <div className="min-w-0">
-                  <span
-                    className="inline-block rounded-full mb-2.5"
-                    style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.14em", background: C.blue, color: C.cream, padding: "4px 12px" }}
-                  >
-                    {s.tag}
-                  </span>
-                  <h3 className="mb-1" style={{ ...SERIF, fontSize: "clamp(1.05rem, 2.5vw, 1.15rem)", color: C.ink, lineHeight: 1.25 }}>{s.name}</h3>
-                  <p style={{ fontSize: "0.825rem", color: C.inkSoft, fontWeight: 400, lineHeight: 1.5 }}>{s.desc}</p>
-                </div>
-                <ArrowRight size={18} style={{ color: C.blue, flexShrink: 0, opacity: 0.4 }} />
-              </motion.div>
-            ))}
+            {services.map((s, i) => {
+              const card = (
+                <motion.div
+                  variants={fadeInScale}
+                  custom={i * 0.08}
+                  whileHover={{ y: -2, boxShadow: "0 8px 32px rgba(1,42,140,0.1)" }}
+                  className="rounded-2xl flex items-center justify-between gap-3 sm:gap-4"
+                  style={{
+                    background: C.white,
+                    padding: "20px 22px",
+                    boxShadow: "0 1px 12px rgba(1,42,140,0.04)",
+                    transition: "box-shadow 0.3s ease",
+                    cursor: s.href ? "pointer" : "default",
+                  }}
+                >
+                  <div className="min-w-0">
+                    <span
+                      className="inline-block rounded-full mb-2.5"
+                      style={{ fontSize: 9, fontWeight: 600, letterSpacing: "0.14em", background: C.blue, color: C.cream, padding: "4px 12px" }}
+                    >
+                      {s.tag}
+                    </span>
+                    <h3 className="mb-1" style={{ ...SERIF, fontSize: "clamp(1.05rem, 2.5vw, 1.15rem)", color: C.ink, lineHeight: 1.25 }}>{s.name}</h3>
+                    <p style={{ fontSize: "0.825rem", color: C.inkSoft, fontWeight: 400, lineHeight: 1.5 }}>{s.desc}</p>
+                  </div>
+                  <ArrowRight size={18} style={{ color: C.blue, flexShrink: 0, opacity: 0.4 }} />
+                </motion.div>
+              );
+              return s.href ? (
+                <Link key={s.tag} href={s.href} style={{ textDecoration: "none" }}>
+                  {card}
+                </Link>
+              ) : (
+                <div key={s.tag}>{card}</div>
+              );
+            })}
           </div>
         </div>
 
