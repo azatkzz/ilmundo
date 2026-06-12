@@ -891,7 +891,9 @@ const CTA = () => (
    10 · FOOTER
    ═══════════════════════════════════════════════════════════════ */
 
-const footerCols = [
+type FooterLink = { label: string; href: string } | { label: string; header: true };
+
+const footerCols: { title: string; links: FooterLink[] }[] = [
   {
     title: "PRODUCT",
     links: [
@@ -908,6 +910,8 @@ const footerCols = [
       { label: "Founder", href: "#founder" },
       { label: "Values", href: "#values" },
       { label: "Contact", href: "#cta" },
+      { label: "Partners", header: true },
+      { label: "Viajar", href: "https://myviajar.com" },
     ],
   },
   {
@@ -953,19 +957,27 @@ const Footer = () => (
               {col.title}
             </p>
             <ul className="flex flex-col gap-2.5">
-              {col.links.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target={link.href.startsWith("http") ? "_blank" : undefined}
-                    rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="transition-colors duration-200 hover:text-[#FFF2E9]"
-                    style={{ fontSize: 13, color: "rgba(255,242,233,0.5)", fontWeight: 400 }}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {col.links.map((link) =>
+                "header" in link ? (
+                  <li key={link.label}>
+                    <p className="uppercase mt-3 mb-0.5" style={{ fontSize: 10, letterSpacing: "0.18em", color: "rgba(255,242,233,0.3)", fontWeight: 500 }}>
+                      {link.label}
+                    </p>
+                  </li>
+                ) : (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target={link.href.startsWith("http") ? "_blank" : undefined}
+                      rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="transition-colors duration-200 hover:text-[#FFF2E9]"
+                      style={{ fontSize: 13, color: "rgba(255,242,233,0.5)", fontWeight: 400 }}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                )
+              )}
             </ul>
           </div>
         ))}
